@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Textarea and Buttons</title>
+<style>
+    #additionalButtons {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<textarea id="textInput" rows="4" cols="50"></textarea><br>
+<button onclick="processText()">Submit</button><br>
+
+<div id="additionalButtons">
+    <button onclick="copyText(0)">Button 1</button>
+    <button onclick="copyText(1)">Button 2</button>
+    <button onclick="copyText(2)">Button 3</button>
+    <button onclick="copyText(3)">Button 4</button>
+    <button onclick="copyText(4)">Button 5</button>
+</div>
+
+<script>
+    let stringArray = []; // Define string array globally
+
+    function processText() {
+        var text = document.getElementById("textInput").value;
+        text = text.replace(/Description|1|2|3|4|5|-/gi, ""); // Replace words ignoring case
+        stringArray = text.split('\n\n'); // Split by consecutive newlines
+
+        var additionalButtons = document.getElementById("additionalButtons");
+        additionalButtons.style.display = "block";
+    }
+
+    function copyText(index) {
+        if (stringArray[index]) {
+            navigator.clipboard.writeText(stringArray[index]);
+            alert("Text copied: " + stringArray[index]);
+        } else {
+            alert("No text found for button " + (index + 1));
+        }
+    }
+</script>
+
+</body>
+</html>
